@@ -1,0 +1,95 @@
+﻿@using ShopBase;
+
+@{
+    Order wk = Context.Session.GetObject<Order>("sessionBasket") ?? new Order();
+    Picture logo = Picture.GetAll()[0];
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApp</title>
+    @*This is for the development Debugger via WebApp*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/js/site.js" asp-append-version="true"/>
+
+    @*This is for the start via Web.exe, important to set the property of the sites in wwwroot to copy to output directory*@
+    <link rel="stylesheet" href="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="wwwroot/css/site.css" />
+    <script src="wwwroot/js/site.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3/dist/jspdf.plugin.autotable.min.js"></script>
+    <script>
+      
+
+
+
+
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-xl navbar-toggleable-xl navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" id="central" asp-area="" asp-page="/Marketplace"><img width="50" height="50" src=@(logo.GetAsString()) />&nbsp;Hofer's Shop</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-xl-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="red-text" asp-area="" asp-page="/Marketplace">Marktplatz</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="purpel-text" asp-area="" asp-page="/Basket">Warenkorb</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="darkyellow-text" asp-area="" asp-page="/Impressum">Impressum</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Code">Dokumentation</a>
+                        </li>
+                        <li class="nav-item ml-auto" id="loginli">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Login" id="@(wk.Customer != null ? "darkgreen-text" : "")">@(wk.Customer == null ? "Anmelden" : $"{wk.Customer.Firstname} {wk.Customer.Lastname}")</a>
+                        </li>
+                        @if (wk.Customer != null)
+                        {
+                            <li class="nav-item ml-auto" id="loginli">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login" asp-page-handler="Logout">Abmelden</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="custom pb-3" id="globalstylemain">
+            <br />
+            @RenderBody()
+        </main>
+    </div>
+    <br />
+    <br />
+
+    <footer class="border-top footer text-muted">
+        <div class="container" style="font-size:1.5em">
+            &copy; 2023 - Hofer's Shop - <a asp-area="" asp-page="/Impressum">Impressum</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

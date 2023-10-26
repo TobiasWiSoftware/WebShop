@@ -51,6 +51,12 @@ namespace DesktopApp
 
         private Status? _changedSelStatus;
 
+        private FontFamily _fontFamily;
+
+        private int _fontSizeText;
+
+        private int _fontSizeButton;
+
 
         public ObservableCollection<Article> LArticle { get => _lAricle; set { _lAricle = value; OnPropertyChanged(nameof(LArticle)); } }
         public ObservableCollection<Customer> LCustomer { get => _lCustomer; set { _lCustomer = value; OnPropertyChanged(nameof(LCustomer)); } }
@@ -106,6 +112,12 @@ namespace DesktopApp
         public Status? ChangedSelStatus { get => _changedSelStatus; set { _changedSelStatus = value; } }
         public static string? ErrorMessage { get; set; }
 
+        // Binding system settings
+
+        public FontFamily FontFamily { get => _fontFamily; set { _fontFamily = value; OnPropertyChanged(nameof(FontFamily)); } }
+        public List<FontFamily> LFontFamilies { get; set; }
+        public int FontSizeText { get => _fontSizeText; set { _fontSizeText = value; OnPropertyChanged(nameof(FontSizeText)); } }
+        public int FontSizeButton { get => _fontSizeButton; set { _fontSizeButton = value; OnPropertyChanged(nameof(FontSizeButton)); } }
 
 
 
@@ -276,6 +288,11 @@ namespace DesktopApp
             //LOrder = new ObservableCollection<Order>(Order.GetAllFromCustomer(SelCustomer.Id).FindAll(x => x.Status == Status.Warenkorb));
             LStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
             SelStatus = Status.Warenkorb;
+
+            FontFamily = new FontFamily("Bahnschrift");
+            LFontFamilies = Fonts.SystemFontFamilies.ToList();
+            FontSizeText = 18;
+            FontSizeButton = 15;
         
         }
         public void DeLoadData()

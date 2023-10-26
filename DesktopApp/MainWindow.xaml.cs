@@ -40,6 +40,7 @@ namespace DesktopApp
             TestData.CreateDatabaseWithData();
 
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
 
             model = FindResource("mxmodel") as MainViewModel;
 
@@ -64,6 +65,13 @@ namespace DesktopApp
             //_defaultBtnWidth = bAdd.Width;
 
             //_defaultBtnMarginBottom = bAdd.Margin.Bottom;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Uri fontUri = new Uri("pack://application:,,,/DesktopApp;component/FontAwesome.otf#FontAwesome");
+            FontFamily customFont = new FontFamily(fontUri, "FontAwesome");
+            Resources["FontAwesome"] = customFont;
         }
 
         // ########################  Begin Article Main Window and Add, Change, Delete and Hidden Dialog ######################## 
@@ -591,9 +599,9 @@ namespace DesktopApp
         {
             if (this.IsLoaded)
             {
-                if (Main != null && Main.SelectedItem != null && model != null)
+                if (tcMain != null && tcMain.SelectedItem != null && model != null)
                 {
-                    TabItem? t = Main.SelectedItem as TabItem;
+                    TabItem? t = tcMain.SelectedItem as TabItem;
                     string? s = null;
                     Func<Task<bool>>? tiTask = null;
 
@@ -660,7 +668,7 @@ namespace DesktopApp
                                                     if (imagesDisplay != null && p != null)
                                                     {
                                                         imagesDisplay.Source = GetBitmapImage(p);
-                                                        tiPicturePictureName.Content = p.Filename;
+                                                        tiPicturePictureName.Text = p.Filename;
                                                     }
                                                 });
                                             }
@@ -682,7 +690,7 @@ namespace DesktopApp
                             break;
                     }
 
-                    if (tiTask != null)
+                    if (_tiTask == null && tiTask != null)
                     {
                         _tiTask = new(() => { tiTask(); });
                         _tiTask.Start();
@@ -791,7 +799,24 @@ namespace DesktopApp
         {
             MessageLine.Text = null;
         }
+        private void Open_Setting_Window(object sender, RoutedEventArgs e)
+        {
+            if (this.dpSettings.Width == 0)
+                this.dpSettings.Width = this.bSetBack.Width; // closeup with the set back button red
+            else
+                this.dpSettings.Width = 0;
 
+        }
+
+        private void OnChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnUnchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

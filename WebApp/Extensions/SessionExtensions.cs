@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http;
+using ShopBase.Model;
 
 namespace WebApp
 
@@ -14,6 +15,12 @@ namespace WebApp
         public static T GetObject<T>(this ISession session, string key) 
         {
             var value = session.GetString(key);
+
+            if(value == null)
+            {
+                Statistic.WebsiteVisit();
+            }
+
             return value == null ? default(T) : JsonSerializer.Deserialize<T>(value);
         }
     }

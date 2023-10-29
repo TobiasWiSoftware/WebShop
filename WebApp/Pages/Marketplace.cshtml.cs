@@ -9,6 +9,7 @@ using ShopBase;
 using System.Web;
 using System.IO;
 using WebApp;
+using ShopBase.Model;
 
 namespace WebApp.Pages
 {
@@ -23,6 +24,8 @@ namespace WebApp.Pages
         {
             lArtikel ??= Article.GetAll();
             Order sessionBasket = HttpContext.Session.GetObject<Order>("sessionBasket") ?? new Order();
+
+
             sessionBasket.Status = Status.Warenkorb;
 
             HttpContext.Session.SetObject("sessionBasket", sessionBasket);
@@ -54,7 +57,7 @@ namespace WebApp.Pages
 
         public void OnPostAdd(int id, int menge)
         {
-            if (menge <= Article.Get(id).Count)
+            if (menge <= Article.Get(id).Count && menge < 10)
             {
                 Order sessionBasket = HttpContext.Session.GetObject<Order>("sessionBasket");
                 sessionBasket.AddPosition(menge, id);
@@ -63,9 +66,15 @@ namespace WebApp.Pages
 
                 Response.Redirect("/Basket");
             }
-            else
+            else if(menge < 10)
             {
                 ErrorMessage = $"Die gewünschte Anzahl ist nicht auf Lager ({Article.Get(id).Name})";
+                Suchbegriff = Article.Get(id).Name;
+                OnPostSuche();
+            }
+            else
+            {
+                ErrorMessage = $"Es sind maximal 9 Artikel pro Kunde zulässig";
                 Suchbegriff = Article.Get(id).Name;
                 OnPostSuche();
             }

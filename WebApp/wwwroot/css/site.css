@@ -29,12 +29,39 @@ input {
     height: 1.4em;
 }
 
+
 ul {
     display: flex;
 }
 
+div.product-card {
+    background-color: beige;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+div.basket-card {
+    background-color: white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
 div.container {
-    min-width: 90% !important;
+    min-width: 83% !important;
 }
 
 label.left {
@@ -85,16 +112,21 @@ h4.green {
 }
 
 table.marketplace {
-    background-color: aquamarine;
-    margin-top: 1em;
     text-align: left;
-    width: 90%;
+    width: 100%;
+}
+
+tr.marketplacetableedge {
+    height: 3em;
 }
 
 td.marketplacename {
     Font-weight: bold;
-    width: 55%;
     padding-left: 10px;
+}
+
+td.imagebox {
+    width: 16%;
 }
 
 td.marketplaceprice {
@@ -104,7 +136,7 @@ td.marketplaceprice {
 }
 
 td.marketplacecount {
-    padding-bottom: 0px;
+    vertical-align:bottom;
     padding-left: 10px;
 }
 
@@ -112,10 +144,6 @@ td.marketplacedesc {
     padding-left: 10px;
 }
 
-
-td.marketplacetobasket {
-    width: 25%;
-}
 
 .code {
     margin-left: 5%;
@@ -206,7 +234,7 @@ button.marginleft {
     color: #26D727 !important;
 }
 
-#darkyellow-text{
+#darkyellow-text {
     color: gold !important;
 }
 
@@ -222,55 +250,68 @@ button.marginleft {
     margin-right: 5%;
 }
 
-@media (max-width: 1050px) {
-    button .custom {
-        font-size: 1rem;
-    }
-
-    main.custom {
-        font-size: 1em;
-    }
-
-    table.basket {
-        min-width: 100%;
-    }
-
-    div.center {
-        display: flex;
-        padding-top: 5%;
-        padding-left: 20%;
-        padding-right: 20%;
-        justify-content: space-between;
-    }
-
-    #marketplacesearchbtn {
-        vertical-align: bottom;
-        background-color: green;
-        width: 8em;
-        display: initial;
-        line-height: 1.8;
-        margin-left: 0.3em;
-        padding-top: unset;
-        padding-bottom: 0.05em;
-    }
+button .custom {
+    font-size: 1rem;
 }
 
-@media (min-width: 1050px) {
+main.custom {
+    font-size: 1em;
+}
+
+table.basket {
+    min-width: 100%;
+}
+
+div.center {
+    display: flex;
+    padding-top: 5%;
+    padding-left: 20%;
+    padding-right: 20%;
+    justify-content: space-between;
+}
+
+#marketplacesearchbtn {
+    vertical-align: bottom;
+    background-color: green;
+    width: 8em;
+    display: initial;
+    line-height: 1.8;
+    margin-left: 0.3em;
+    padding-top: unset;
+    padding-bottom: 0.05em;
+}
+
+@media(min-width: 600) {
+}
+
+
+
+@media (min-width: 1200px) {
 
 
     img.article {
-        width: 150px;
-        height: 180px;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        padding-right: 5%;
+        padding-left: 5%;
+        width: 6em;
+        height: 8em;
     }
 
+        img.article:hover {
+            transform: scale(1.7);
+        }
+
     input.check {
+        margin-top:0.5em;
+        margin-bottom:1em;
         height: 1em !important;
         width: 1em !important;
     }
 
 
     table.basket {
-        min-width: 85%;
+        min-width: 100%;
     }
 
     table.decision {
@@ -283,6 +324,52 @@ button.marginleft {
 
     button.custom {
         font-size: 1em;
+        margin-top:0.5em;
+        margin-bottom:1em;
+    }
+
+
+    button.marketplace {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1em;
+    }
+
+
+    button.blue {
+      
+        background: linear-gradient(to right, #36D1DC, #5B86E5);
+        border: none;
+        padding: 3px 25px;
+        align-content:center;
+        vertical-align:central;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s;
+        width:10em;
+        height:2em;
+    }
+
+    button.green {
+        background-image: linear-gradient(to right, #6EDB75, #2C7A2D);
+        color: white; /* Weißer Text passt gut zu dunklen Hintergrundfarben */
+        border: none; /* Entfernt möglicherweise vorhandene Standardbordüren */
+        border: none;
+        padding: 12px 40px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+        button.green:hover {
+            background-image: linear-gradient(to right, #2C7A2D, #6EDB75);
+        }
+
+    button.blue:hover {
+            background: linear-gradient(to right, #5B86E5, #36D1DC);
     }
 
     div.center {
@@ -293,23 +380,41 @@ button.marginleft {
         justify-content: space-between;
     }
 
+    .outersearchdiv {
+        width: 100%;
+        height: 3em;
+        display:ruby;
+        align-items: center; /* Zentriert die Elemente vertikal */
+        /* Verteilt die Elemente mit einem Abstand dazwischen */
+    }
+
+    div.innersearchdiv{
+        margin-bottom:0.1em;
+    }
+
+
+    tr.myrow{
+
+        vertical-align:central;
+        width:100%;
+    }
+
     div.left {
         display: flex;
         justify-content: space-between;
     }
 
-
-
     #marketplacesearchbtn {
+        font-size: 1.1em;
+        align-content: flex-start;
         vertical-align: bottom;
         background-color: green;
-        width: 8em;
+        width: 7em;
         margin-left: 0.3em;
         display: initial;
-        line-height: 1.55;
+        line-height: 1.5;
         padding-top: unset;
-        padding-bottom: 0.1em;
+        padding-bottom: -0.1em;
+        
     }
 }
-
-

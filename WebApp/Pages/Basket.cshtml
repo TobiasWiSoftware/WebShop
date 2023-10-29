@@ -5,73 +5,76 @@
 
 }
 
-<div class="container">
 
-    @if (Model.OrderSubmitted)
+@if (Model.OrderSubmitted)
+{
+    string pDataString = "";
+
+    foreach (Position p in @Model.sessionBasket.Positions)
     {
-        string pDataString = "";
-
-        foreach (Position p in @Model.sessionBasket.Positions)
-        {
-            pDataString += $"{p.Article.Name};{p.Count};{p.Article.Price};{p.Totalsum}$";
-        }
-
-        pDataString = pDataString.Remove(pDataString.Length - 1);
-
-        string oid = Model.sessionBasket.Id + "";
-        string name = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Firstname + " " + Model.sessionBasket.Customer.Lastname : Model.sessionBasket.NonCustomer.Firstname + " " + Model.sessionBasket.NonCustomer.Lastname;
-        string street = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.Street : Model.sessionBasket.NonCustomer.Adress.Street;
-        string house = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.HouseNumber + "" : Model.sessionBasket.NonCustomer.Adress.HouseNumber + "";
-        string postal = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.PostalCode + "" : Model.sessionBasket.NonCustomer.Adress.PostalCode + "";
-        string city = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.City : Model.sessionBasket.NonCustomer.Adress.City;
-        string country = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.Country : Model.sessionBasket.NonCustomer.Adress.Country;
-
-        <h2 class="green">Ihre Bestellung wurde angenommen. <a style="font-size:1.0em" href="/Basket" onclick="getPDF('@oid', '@name', '@street', '@house', '@postal', '@city', '@country', '@pDataString')">Zur Rechnung (Popup erlauben)</a></h2>
-
-        Customer c = Model.sessionBasket.Customer;
-        Model.sessionBasket = new Order();
-        HttpContext.Session.Clear();
-        Model.sessionBasket.Status = Status.Warenkorb;
-        Model.sessionBasket.Customer = c;
-        HttpContext.Session.SetObject("sessionBasket", @Model.sessionBasket);
+        pDataString += $"{p.Article.Name};{p.Count};{p.Article.Price};{p.Totalsum}$";
     }
 
-    @if (Model.ResultMessage != null)
-    {
-        <p class="false">@Model.ResultMessage</p>
-    }
+    pDataString = pDataString.Remove(pDataString.Length - 1);
+
+    string oid = Model.sessionBasket.Id + "";
+    string name = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Firstname + " " + Model.sessionBasket.Customer.Lastname : Model.sessionBasket.NonCustomer.Firstname + " " + Model.sessionBasket.NonCustomer.Lastname;
+    string street = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.Street : Model.sessionBasket.NonCustomer.Adress.Street;
+    string house = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.HouseNumber + "" : Model.sessionBasket.NonCustomer.Adress.HouseNumber + "";
+    string postal = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.PostalCode + "" : Model.sessionBasket.NonCustomer.Adress.PostalCode + "";
+    string city = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.City : Model.sessionBasket.NonCustomer.Adress.City;
+    string country = Model.sessionBasket.Customer != null ? Model.sessionBasket.Customer.Adress.Country : Model.sessionBasket.NonCustomer.Adress.Country;
+
+    <h2 class="green">Ihre Bestellung wurde angenommen. <a style="font-size:1.0em" href="/Basket" onclick="getPDF('@oid', '@name', '@street', '@house', '@postal', '@city', '@country', '@pDataString')">Zur Rechnung (Popup erlauben)</a></h2>
+
+    Customer c = Model.sessionBasket.Customer;
+    Model.sessionBasket = new Order();
+    HttpContext.Session.Clear();
+    Model.sessionBasket.Status = Status.Warenkorb;
+    Model.sessionBasket.Customer = c;
+    HttpContext.Session.SetObject("sessionBasket", @Model.sessionBasket);
+}
+
+@if (Model.ResultMessage != null)
+{
+    <p class="false">@Model.ResultMessage</p>
+}
 
 
-    @if (Model.sessionBasket != null && Model.sessionBasket.Positions != null)
+@if (Model.sessionBasket != null && Model.sessionBasket.Positions != null)
+{
+    int i = 0;
+    @foreach (Position item in Model.sessionBasket.Positions.OrderBy(x => x.Totalsum).Reverse())
     {
+        i++;
         <table class="basket">
-            <thead>
-                <tr>
-                    <td>Artikel</td>
-                    <td>Einzelpreis</td>
-                    <td>Anzahl</td>
-                    <td>Gesamtpreis</td>
-                </tr>
-            </thead>
-            @foreach (Position item in Model.sessionBasket.Positions.OrderBy(x => x.Totalsum).Reverse())
+
+            @if (i == 1)
             {
-                <form method="post">
-                <tr>
-                    <td>@item.Article.Name</td>
-                    <td>@item.Article.Price</td>
-                    <td>@item.Count</td>
-                    <td style="text-align:right">@item.Totalsum.ToString("#0.00")</td>
-                    <td><button class="btn btn-primary btn-block mb-4 basketbtnred marginleft" asp-page-handler="Delete" asp-route-id="@Model.sessionBasket.Positions.IndexOf(item)">Löschen</button></td>
-                </tr>
-                </form>
+                <thead>
+                    <tr>
+                        <td>Artikel</td>
+                        <td>Einzelpreis</td>
+                        <td>Anzahl</td>
+                        <td>Gesamtpreis</td>
+                    </tr>
+                </thead>
             }
+            <form method="post">
+            <tr>
+                <td>@item.Article.Name</td>
+                <td>@item.Article.Price</td>
+                <td>@item.Count</td>
+                <td style="text-align:right">@item.Totalsum.ToString("#0.00")</td>
+                <td><button class="btn btn-primary btn-block mb-4 basketbtnred marginleft" asp-page-handler="Delete" asp-route-id="@Model.sessionBasket.Positions.IndexOf(item)">Löschen</button></td>
+            </tr>
+
             <tr>
                 <td colspan=3>Summe</td>
                 <td style="text-align:right">@Model.sessionBasket.Positions.Sum(item => item.Totalsum).ToString("#0.00")</td>
             </tr>
 
 
-            <form method="post">
             <tr>
                 <td colspan="4">
                     <button asp-page-handler="Back" class="btn btn-primary btn-block mb-4 basketbtnred">Zurück zur Suche</button>
@@ -90,12 +93,11 @@
             </tr>
             </form>
         </table>
-
-
     }
-    else if (!Model.OrderSubmitted)
-    {
-        <p>Der Warenkorb ist leer</p>
-    }
-</div>
 
+}
+
+else if (!Model.OrderSubmitted)
+{
+    <p>Der Warenkorb ist leer</p>
+}

@@ -17,6 +17,8 @@ namespace Layer3Access
     {
         private static string _liteSQLPath = @"../../../../ShopBase/Persistence/WebShop.db";
 
+        private static string _statsFile = @"../../../../ShopBase/Persistence/Data.txt";
+
         public static bool CreateDefaultDataBase()
         {
             bool isCreated = false;
@@ -27,6 +29,11 @@ namespace Layer3Access
                 fs.Close();
 
                 isCreated = true;
+            }
+
+            if (!File.Exists(_statsFile))
+            {
+                File.Create(_statsFile);
             }
 
             return isCreated;
@@ -129,7 +136,7 @@ namespace Layer3Access
         {
             bool isCreated = false;
 
-            string sql =       "Create Table TArticle" +
+            string sql = "Create Table TArticle" +
                                "(" +
                                "Id integer primary key autoincrement," +
                                "Active bool default false," +
@@ -181,7 +188,7 @@ namespace Layer3Access
         {
             bool isCreated = false;
 
-            string sql =        "Create Table TNodeAdress" +
+            string sql = "Create Table TNodeAdress" +
                                 "(" +
                                 "Id integer primary key autoincrement," +
                                 "CId int default null," +
@@ -237,7 +244,7 @@ namespace Layer3Access
             }
 
             return isCreated;
-        } 
+        }
         public static bool CreateNonCustomerTable()
         {
             bool isCreated = false;
@@ -250,7 +257,7 @@ namespace Layer3Access
             //}
 
 
-            string sql =        "Create Table TNonCustomer" +
+            string sql = "Create Table TNonCustomer" +
                                 "(" +
                                 "Id integer primary key autoincrement," +
                                 "EMail VARCHAR(50) not null," +
@@ -282,7 +289,7 @@ namespace Layer3Access
             //}
 
 
-            string sql =        "Create Table TPicture" +
+            string sql = "Create Table TPicture" +
                                 "(" +
                                 "Id integer primary key autoincrement," +
                                 "AId int default null," +
@@ -302,7 +309,7 @@ namespace Layer3Access
             }
 
             return isCreated;
-        } 
+        }
         public static bool CreateOrderTable()
         {
             bool isCreated = false;
@@ -315,7 +322,7 @@ namespace Layer3Access
             //}
 
 
-            string sql =        "Create Table TOrder" +
+            string sql = "Create Table TOrder" +
                                 "(" +
                                 "Id integer primary key autoincrement," +
                                 "CId int default null," +
@@ -348,7 +355,7 @@ namespace Layer3Access
             //}
 
 
-            string sql =        "Create Table TPosition" +
+            string sql = "Create Table TPosition" +
                                "(" +
                                "Id integer primary key autoincrement," +
                                "Oid int not null," +
@@ -369,5 +376,26 @@ namespace Layer3Access
 
             return isCreated;
         }
+        public static void AddVisit()
+        {
+            int count = 1;
+            using (StreamReader r = new(_statsFile))
+            {
+                string? s = r.ReadLine();
+
+                if (s != null)
+                {
+                    count = Convert.ToInt32(s);
+                    count++;
+                }
+
+            }
+            using (StreamWriter w = new(_statsFile, false))
+            {
+                w.WriteLine(count);
+            }
+        }
+
+
     }
 }

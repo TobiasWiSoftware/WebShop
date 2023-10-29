@@ -364,3 +364,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /ShopBase/Persistence/WebShop.db
+/ShopBase/Persistence/Data.txt

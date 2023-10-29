@@ -15,7 +15,7 @@ namespace Layer3Objects
     public static class DBObjects
     {
         private static CultureInfo culture = new CultureInfo("en-US");
-        public static void CrateDefaultDatabase()
+        public static void CreateDefaultDatabase()
         {
             DBAccess.CreateDefaultDataBase();
 
@@ -52,6 +52,8 @@ namespace Layer3Objects
             {
                 TestData.InsertOrders();
             }
+
+
 
 
 
@@ -699,6 +701,10 @@ namespace Layer3Objects
             }
 
             return p;
+        }
+        public static void AddVisit()
+        {
+            DBAccess.AddVisit();
         }
     }
 }

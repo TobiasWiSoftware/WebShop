@@ -10,15 +10,21 @@
 
 <div align='center'>
     <form method="post">
-        <table>
-            <tr>
-                <td>
+        @*<table>
+        <tr class="myrow">
+        <td>*@
+        <div class="outersearchdiv">
+            <div class="innersearchdiv">
+                <b>
                     Suchbegriff
-                    <input type="text" asp-for="Suchbegriff" />
-                    <button type="submit" asp-page-handler="Suche" class="btn btn-primary btn-block custom" id="marketplacesearchbtn">Suchen</button>
-                </td>
-            </tr>
-        </table>
+                </b>
+                <input type="text" asp-for="Suchbegriff" />
+            </div>
+            <button type="submit" asp-page-handler="Suche" class="green" id="marketplacesearchbtn">Suchen</button>
+        </div>
+        @*             </td>
+        </tr>
+        </table>*@
         @if (Model.ErrorMessage != null)
         {
             <p class="false">@Model.ErrorMessage</p>
@@ -30,36 +36,39 @@
         {
             i++;
             <form method="post">
-                <table class="marketplace">
-                    <tr>
-                        <td class="marketplacename">@a.Name</td>
-                        @{
-                            Picture? p = Picture.Get(a.Id);
-                        }
-                        <td rowspan="3"><img class="article" id="marketplaceimg" width="90" height="100" src="@(p != null ? p.GetAsString() : "")" /></td>
-                        <td class="marketplaceprice">@a.Price.ToString("#0.00") EUR</td>
-                    </tr>
-                    <tr>
-                        <td class="marketplacedesc">@a.Description</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="marketplacecount">
-                            <p>
-                                Menge: <input value="1" maxlength="3" size="1" type="text" name="menge" />
-                                @if (a.Count < 10)
-                                {
-                                    <code>Auf Lager:&nbsp;&nbsp;@a.Count</code>
-                                }
-                                else
-                                {
-                                    <code>Auf Lager:&nbsp;@a.Count</code>
-                                }
-                            </p>
-                        </td>
-                        <td class="marketplacetobasket"><button type="submit" size=5 asp-page-handler="Add" asp-route-id="@a.Id" class="btn btn-primary btn-block custom" id="marketplacetobasketbtn">Warenkorb</button></td>
-                    </tr>
-                </table>
+                <div class="product-card">
+
+                    <table class="marketplace">
+                        <tr class="marketplacetableedge">
+                            @{
+                                Picture? p = Picture.Get(a.Id);
+                            }
+                            <td rowspan="3" class="imagebox"><img class="article" src="@(p != null ? p.GetAsString() : "")" /></td>
+                            <td class="marketplacename">@a.Name</td>
+                            <td class="marketplaceprice">@a.Price.ToString("#0.00") EUR</td>
+                        </tr>
+                        <tr>
+                            <td class="marketplacedesc">@a.Description</td>
+                            <td></td>
+                        </tr>
+                        <tr class="marketplacetableedge">
+                            <td class="marketplacecount">
+                                <p>
+                                    Menge: <input value="1" maxlength="3" size="1" height="1" type="text" name="menge" />
+                                    @if (a.Count < 10)
+                                    {
+                                        <code>Auf Lager:&nbsp;&nbsp;@a.Count</code>
+                                    }
+                                    else
+                                    {
+                                        <code>Auf Lager:&nbsp;@a.Count</code>
+                                    }
+                                </p>
+                            </td>
+                            <td><button type="submit" size=5 asp-page-handler="Add" asp-route-id="@a.Id" class="blue marketplace">Warenkorb</button></td>
+                        </tr>
+                    </table>
+                </div>
             </form>
         }
         <br />
@@ -69,3 +78,11 @@
         }
     </form>
 </div>
+
+<style>
+
+
+
+
+
+</style>

@@ -265,7 +265,7 @@ namespace DesktopApp
 
             }
         }
-        private void bChangeChange(object sender, RoutedEventArgs e)
+        private void bChangeChange_Click(object sender, RoutedEventArgs e)
         {
             if (!this.IsLoaded)
                 return;
@@ -311,7 +311,7 @@ namespace DesktopApp
             }
 
         }
-        private void bChangeCancel(object sender, RoutedEventArgs e)
+        private void bChangeCancel_Click(object sender, RoutedEventArgs e)
         {
             if (!this.IsLoaded)
                 return;
@@ -515,7 +515,7 @@ namespace DesktopApp
                 if (model != null)
                     model.LCustomer = new System.Collections.ObjectModel.ObservableCollection<Customer>(Customer.GetAll());
 
-                bCustomerChangeCancel(new object(), new RoutedEventArgs());
+                bCustomerChangeCancel_Click(new object(), new RoutedEventArgs());
 
                 tiCustomer.IsSelected = true;
             }
@@ -532,7 +532,7 @@ namespace DesktopApp
             }
 
         }
-        private void bCustomerChangeCancel(object sender, RoutedEventArgs e)
+        private void bCustomerChangeCancel_Click(object sender, RoutedEventArgs e)
         {
             tiCustomerChange.Visibility = Visibility.Collapsed;
             tiArticle.IsEnabled = true;
@@ -810,11 +810,65 @@ namespace DesktopApp
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
+            tiArticle.Style = (Style)this.Resources["DarkThemeTabStyle"];
+            tiArticleAdd.Style = (Style)this.Resources["DarkThemeTabStyle"];
+            tiArticleChange.Style = (Style)this.Resources["DarkThemeTabStyle"];
+            tiCustomer.Style = (Style)this.Resources["DarkThemeTabStyle"];
+            tiCustomerChange.Style = (Style)this.Resources["DarkThemeTabStyle"];
+            tiOrder.Style = (Style)this.Resources["DarkThemeTabStyle"];
+            tiPicture.Style = (Style)this.Resources["DarkThemeTabStyle"];
 
+
+            bArticleAdd.Style = (Style)Resources["DarkButtonStyle"];
+            bArticleChange.Style = (Style)Resources["DarkButtonStyle"];
+            bArticleDelete.Style = (Style)Resources["DarkButtonStyle"];
+            
+            bAddCreate.Style = (Style)Resources["DarkButtonStyle"];
+            bAddCreateCancel.Style = (Style)Resources["DarkButtonStyle"];
+
+            bChangeCreate.Style = (Style)Resources["DarkButtonStyle"];
+            bChangeCancel.Style = (Style)Resources["DarkButtonStyle"];
+
+            bCustomerChange.Style = (Style)Resources["DarkButtonStyle"];
+            bCustomerDelete.Style = (Style)Resources["DarkButtonStyle"];
+            
+            bCustomerChangeChange.Style = (Style)Resources["DarkButtonStyle"];
+            bCustomerChangeCancel.Style = (Style)Resources["DarkButtonStyle"];
+            
+            bOrderChange.Style = (Style)Resources["DarkButtonStyle"];
+
+            ibBackground.ImageSource = new BitmapImage(new Uri("../../../Pictures/DarkDesktop.jpg", UriKind.Relative));
         }
 
         private void OnUnchecked(object sender, RoutedEventArgs e)
         {
+            tiArticle.Style = (Style)this.Resources["LightThemeTabStyle"];
+            tiArticleAdd.Style = (Style)this.Resources["LightThemeTabStyle"];
+            tiArticleChange.Style = (Style)this.Resources["LightThemeTabStyle"];
+            tiCustomer.Style = (Style)this.Resources["LightThemeTabStyle"];
+            tiCustomerChange.Style = (Style)this.Resources["LightThemeTabStyle"];
+            tiOrder.Style = (Style)this.Resources["LightThemeTabStyle"];
+            tiPicture.Style = (Style)this.Resources["LightThemeTabStyle"];
+
+            bArticleAdd.Style = (Style)Resources["LightButtonStyle"];
+            bArticleChange.Style = (Style)Resources["LightButtonStyle"];
+            bArticleDelete.Style = (Style)Resources["LightButtonStyle"];
+
+            bAddCreate.Style = (Style)Resources["LightButtonStyle"];
+            bAddCreateCancel.Style = (Style)Resources["LightButtonStyle"];
+
+            bChangeCreate.Style = (Style)Resources["LightButtonStyle"];
+            bChangeCancel.Style = (Style)Resources["LightButtonStyle"];
+
+            bCustomerChange.Style = (Style)Resources["LightButtonStyle"];
+            bCustomerDelete.Style = (Style)Resources["LightButtonStyle"];
+
+            bCustomerChangeChange.Style = (Style)Resources["LightButtonStyle"];
+            bCustomerChangeCancel.Style = (Style)Resources["LightButtonStyle"];
+
+            bOrderChange.Style = (Style)Resources["LightButtonStyle"];
+
+            ibBackground.ImageSource = new BitmapImage(new Uri("../../../Pictures/LightDesktop.jpg", UriKind.Relative));
 
         }
     }

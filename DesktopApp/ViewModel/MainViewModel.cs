@@ -269,7 +269,7 @@ namespace DesktopApp
         }
 
         public void SetHoverStyle(object sender, MouseEventArgs e)
-        {
+         {
             Button? b = sender as Button;
 
             if (b != null)

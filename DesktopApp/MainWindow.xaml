@@ -31,12 +31,155 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="LightButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
+                                <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DarkButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#2E3A46"/>
+            <Setter Property="Foreground" Value="#C6D4DF"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
+                                <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LightThemeTabStyle" TargetType="{x:Type TabItem}">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <!-- Light gray -->
+            <Setter Property="FontSize" Value="{Binding FontSizeButton}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <!-- Dark gray (for text) -->
+
+            <!-- Overriding the ControlTemplate -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <!-- Using a Border to provide the background and optionally, a border around the TabItem -->
+                        <Border Name="Border" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#E0E0E0">
+                            <!-- Lighter gray border -->
+                            <ContentPresenter x:Name="ContentSite" 
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      ContentSource="Header" />
+                        </Border>
+
+                        <!-- Visual states for the TabItem (e.g. when it's selected) -->
+                        <ControlTemplate.Triggers>
+                            <Trigger  Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#CCFFCC"/>
+                                <!-- Soothing blue for selected tab -->
+                                <Setter Property="Foreground" Value="#1A2B38"/>
+                                <!-- Dark blue text for selected tab -->
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FAFAFA"/>
+                                <!-- Light gray for unselected tab -->
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderBrush" Value="#D0D0D0" TargetName="Border"/>
+                                <!-- Slightly darker gray for hover border -->
+                                <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="DarkThemeTabStyle" TargetType="{x:Type TabItem}">
+            <Setter Property="Background" Value="#2E3A46"/>
+            <!-- Muted dark blue-gray -->
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Cascadia Code SemiBold"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#C6D4DF"/>
+            <!-- Light blue-gray (for text) -->
+
+            <!-- Overriding the ControlTemplate -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <!-- Using a Border to provide the background and optionally, a border around the TabItem -->
+                        <Border Name="Border" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#1B242F">
+                            <!-- Darker blue-gray border -->
+                            <ContentPresenter x:Name="ContentSite" 
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      ContentSource="Header" />
+                        </Border>
+
+                        <!-- Visual states for the TabItem (e.g. when it's selected) -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#4A90E2"/>
+                                <!-- Bright blue for selected tab -->
+                                <Setter Property="Foreground" Value="White"/>
+                                <!-- White text for selected tab -->
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#2E3A46"/>
+
+                                <!-- Muted dark blue-gray for unselected tab -->
+
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+
+                                <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
+                                <!-- Slightly lighter blue-gray for hover border -->
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
 
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Pictures/Desktop.jpg" Opacity="0.8"></ImageBrush>
+            <ImageBrush x:Name="ibBackground" ImageSource="Pictures/LightDesktop.jpg" Opacity="0.8"></ImageBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="92*" />
@@ -49,126 +192,7 @@
 
         <Grid Grid.Row="0" Grid.Column="0">
             <DockPanel>
-                <TabControl x:Name="tcMain" SelectionChanged="Main_SelectionChanged" Grid.Row="0" Background="Transparent">
-                    <TabControl.Resources>
-                        <Style TargetType="{x:Type TabItem}">
-                            <Setter Property="Background" Value="#F5F5F5"/>
-                            <!-- Light gray -->
-                            <Setter Property="FontSize" Value="{Binding FontSizeButton}"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="Foreground" Value="#333333"/>
-                            <!-- Dark gray (for text) -->
-
-                            <!-- Overriding the ControlTemplate -->
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type TabItem}">
-                                        <!-- Using a Border to provide the background and optionally, a border around the TabItem -->
-                                        <Border Name="Border" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#E0E0E0">
-                                            <!-- Lighter gray border -->
-                                            <ContentPresenter x:Name="ContentSite" 
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      ContentSource="Header" />
-                                        </Border>
-
-                                        <!-- Visual states for the TabItem (e.g. when it's selected) -->
-                                        <ControlTemplate.Triggers>
-                                            <Trigger  Property="IsSelected" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="#CCFFCC"/>
-                                                <!-- Soothing blue for selected tab -->
-                                                <Setter Property="Foreground" Value="#1A2B38"/>
-                                                <!-- Dark blue text for selected tab -->
-                                            </Trigger>
-                                            <Trigger Property="IsSelected" Value="False">
-                                                <Setter TargetName="Border" Property="Background" Value="#FAFAFA"/>
-                                                <!-- Light gray for unselected tab -->
-                                            </Trigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="False"/>
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#D0D0D0" TargetName="Border"/>
-                                                <!-- Slightly darker gray for hover border -->
-                                                <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                            </MultiDataTrigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-
-                        <!--alternitve for dark mode
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Background" Value="#2E3A46"/>
-                    -->
-                        <!-- Muted dark blue-gray -->
-                        <!--
-                    <Setter Property="FontSize" Value="13"/>
-                    <Setter Property="FontFamily" Value="Cascadia Code SemiBold"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Foreground" Value="#C6D4DF"/>
-                    -->
-                        <!-- Light blue-gray (for text) -->
-
-                        <!-- Overriding the ControlTemplate -->
-                        <!--
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type TabItem}">
-                                -->
-                        <!-- Using a Border to provide the background and optionally, a border around the TabItem -->
-                        <!--
-                                <Border Name="Border" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#1B242F">
-                                    -->
-                        <!-- Darker blue-gray border -->
-                        <!--
-                                    <ContentPresenter x:Name="ContentSite" 
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      ContentSource="Header" />
-                                </Border>
-
-                                -->
-                        <!-- Visual states for the TabItem (e.g. when it's selected) -->
-                        <!--
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="#4A90E2"/>
-                                        -->
-                        <!-- Bright blue for selected tab -->
-                        <!--
-                                        <Setter Property="Foreground" Value="White"/>
-                                        -->
-                        <!-- White text for selected tab -->
-                        <!--
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Border" Property="Background" Value="#2E3A46"/>
-                                        -->
-                        <!-- Muted dark blue-gray for unselected tab -->
-                        <!--
-                                    </Trigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="False"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="BorderBrush" Value="#3B4E5C"/>
-                                        -->
-                        <!-- Slightly lighter blue-gray for hover border -->
-                        <!--
-                                        <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                    </MultiDataTrigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>-->
-
-
-                    </TabControl.Resources>
+                <TabControl x:Name="tcMain"  SelectionChanged="Main_SelectionChanged" Grid.Row="0" Background="Transparent">
 
                     <!-- Overriding the TabControl template -->
                     <TabControl.Template>
@@ -214,74 +238,13 @@
                         </ControlTemplate>
                     </TabControl.Template>
 
-                    <TabItem x:Name="tiArticle" IsSelected="true" Header="Artikel" Width="100" Height="30">
+                    <TabItem x:Name="tiArticle" IsSelected="true" Header="Artikel" Width="100" Height="30" Style="{StaticResource LightThemeTabStyle}">
                         <Grid Background="Transparent">
-                            <Button x:Name="bArticleAdd" FontSize="{Binding FontSizeButton}" Content="Artikel anlegen" Opacity="0.7"  HorizontalAlignment="Left" Margin="100,0,0,33" Click="bAdd_Click" Width="160" FontWeight="Bold" Height="40" VerticalAlignment="Bottom" Grid.Column="1" FontFamily="{Binding FontFamily}">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
-                                                            <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button x:Name="bArticleChange" Content="Artikel ändern" Background="white" Opacity="0.7" FontSize="{Binding FontSizeButton}" IsEnabled="{Binding SelArticle, Converter={StaticResource conv}}"    Margin="80,0,80,33" Click="bChange_Click" Height="40" Width="160" VerticalAlignment="Bottom" FontFamily="{Binding FontFamily}" FontWeight="Bold" Grid.Column="1">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="#d1f7d0" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
-                                                            <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button x:Name="bArticleDelete" Content="Artikel löschen" FontSize="{Binding FontSizeButton}" Background="White" Opacity="0.7" IsEnabled="{Binding SelArticle,Converter={StaticResource conv}}" Margin="0,0,100,33" Height="40" Click="bDelete_Click" Width="160" VerticalAlignment="Bottom" FontFamily="Bahnhschrift" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="#d1f7d0" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
-                                                            <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                            <Button x:Name="bArticleAdd" Style="{StaticResource LightButtonStyle}" FontSize="{Binding FontSizeButton}" Content="Artikel anlegen" HorizontalAlignment="Left" Margin="100,0,0,33" Click="bAdd_Click" Width="160" FontWeight="Bold" Height="40" VerticalAlignment="Bottom" Grid.Column="1" FontFamily="{Binding FontFamily}"/>
+                            <Button x:Name="bArticleChange" Content="Artikel ändern" Style="{StaticResource LightButtonStyle}" FontSize="{Binding FontSizeButton}" IsEnabled="{Binding SelArticle, Converter={StaticResource conv}}"    Margin="80,0,80,33" Click="bChange_Click" Height="40" Width="160" VerticalAlignment="Bottom" FontFamily="{Binding FontFamily}" FontWeight="Bold" Grid.Column="1"/>
+                            <Button x:Name="bArticleDelete" Content="Artikel löschen" Style="{StaticResource LightButtonStyle}" FontSize="{Binding FontSizeButton}"  IsEnabled="{Binding SelArticle,Converter={StaticResource conv}}" Margin="0,0,100,33" Height="40" Click="bDelete_Click" Width="160" VerticalAlignment="Bottom" FontFamily="Bahnhschrift" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1"/>
+
+
                             <DataGrid x:Name="lbArtList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="100,33,100,100" Foreground="Black" RowBackground="white" IsReadOnly="True" ItemsSource="{Binding LArticle}"  SelectedItem="{Binding SelArticle}" GridLinesVisibility="None" FontSize="{Binding FontSizeText}" FontFamily="{Binding FontFamily}" SelectionChanged="lbArtList_SelectionChanged" AutoGenerateColumns="False" Grid.Column="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column" Background="white" Opacity="0.7" RenderTransformOrigin="0.49,0.556" FontWeight="Black">
                                 <DataGrid.Resources>
                                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -310,7 +273,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem x:Name="tiArticleAdd" Header="Artikel hinzufügen" Visibility="Collapsed" >
+                    <TabItem x:Name="tiArticleAdd" Header="Artikel hinzufügen" Visibility="Collapsed" Style="{StaticResource LightThemeTabStyle}" >
                         <Grid Height="400" Width="800" HorizontalAlignment="center" VerticalAlignment="Center">
                             <Label Content="Id" FontSize="20" FontFamily="{Binding FontFamily}" Margin="180,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.341,2.029" HorizontalAlignment="Left" Height="32" Width="37"/>
                             <Label Content="Bezeichnung" FontFamily="{Binding FontFamily}" FontSize="20" Margin="84,142,0,0" RenderTransformOrigin="0.576,-0.273" HorizontalAlignment="Left" Width="126" Height="32" VerticalAlignment="Top"/>
@@ -320,48 +283,9 @@
                             <TextBox x:Name="tbAddName" Text="" FontFamily="{Binding FontFamily}" FontSize="20" HorizontalAlignment="Left" Margin="232,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" MaxLength="30" Height="26"/>
                             <TextBox x:Name="tbAddDesc" Text="" MaxLength="60" FontFamily="{Binding FontFamily}" FontSize="20" HorizontalAlignment="Left" Margin="232,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="242" Height="26"/>
                             <TextBox x:Name="tbAddPrice"  Text="" HorizontalAlignment="Left" FontFamily="{Binding FontFamily}" FontSize="20" Margin="232,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" MaxLength="9" Height="26"/>
-                            <Button x:Name="bAddCreate" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" FontWeight="Bold" Content="Anlegen" HorizontalAlignment="Left" Margin="232,280,0,0" VerticalAlignment="Top" Width="84" Click="bAddAdd" RenderTransformOrigin="-0.15,0.653" Height="30">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="LightGreen" TargetName="Border" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button Content="Abbrechen" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" FontWeight="Bold"  HorizontalAlignment="Left" Margin="390,280,0,0" VerticalAlignment="Top" Click="bAddCancel" RenderTransformOrigin="0.162,0.603" Height="29" Width="84">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="LightGreen" TargetName="Border" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                            
+                            <Button x:Name="bAddCreate" Style="{StaticResource LightButtonStyle}" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" FontWeight="Bold" Content="Anlegen" HorizontalAlignment="Left" Margin="232,280,0,0" VerticalAlignment="Top" Width="84" Click="bAddAdd" RenderTransformOrigin="-0.15,0.653" Height="30"/>
+                            <Button x:Name="bAddCreateCancel" Content="Abbrechen" Style="{StaticResource LightButtonStyle}" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" FontWeight="Bold"  HorizontalAlignment="Left" Margin="390,280,0,0" VerticalAlignment="Top" Click="bAddCancel" RenderTransformOrigin="0.162,0.603" Height="29" Width="84"/>
 
                             <Button x:Name="articleAddPicture" Background="LightGray"  HorizontalAlignment="Left" Height="148" Width="110" Margin="514,107,0,0" Click="articleAddPicture_Click" VerticalAlignment="Top">
                                 <Image x:Name="imageAdd" Source="{Binding SelArticlePicture, Converter={StaticResource conv}}" />
@@ -371,7 +295,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem x:Name="tiArticleChange" Header="Artikel ändern" Visibility="Collapsed" >
+                    <TabItem x:Name="tiArticleChange" Header="Artikel ändern" Visibility="Collapsed" Style="{StaticResource LightThemeTabStyle}">
                         <Grid Height="400" Width="800" HorizontalAlignment="center" VerticalAlignment="Center">
                             <Label Content="Id" FontSize="20" FontFamily="{Binding FontFamily}" Margin="180,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.341,2.029" HorizontalAlignment="Left" Height="32" Width="37"/>
                             <Label Content="Bezeichnung" FontFamily="{Binding FontFamily}" FontSize="20" Margin="84,142,0,0" RenderTransformOrigin="0.576,-0.273" HorizontalAlignment="Left" Width="126" Height="32" VerticalAlignment="Top"/>
@@ -383,48 +307,11 @@
                             <TextBox x:Name="tbChangeDesc" MaxLength="60" FontFamily="{Binding FontFamily}" FontSize="20" HorizontalAlignment="Left" Margin="232,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="242" Height="26"/>
                             <TextBox x:Name="tbChangePrice" HorizontalAlignment="Left" FontFamily="{Binding FontFamily}" FontSize="20" Margin="232,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" MaxLength="9" Height="26"/>
 
-                            <Button x:Name="bChangeCreate" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" FontWeight="Bold" Content="Ändern" HorizontalAlignment="Left" Margin="232,280,0,0" VerticalAlignment="Top" Width="84" Click="bChangeChange" RenderTransformOrigin="-0.15,0.653" Height="30">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="LightGreen" TargetName="Border" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button Content="Abbrechen" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" FontWeight="Bold"  HorizontalAlignment="Left" Margin="390,280,0,0" VerticalAlignment="Top" Click="bChangeCancel" RenderTransformOrigin="0.162,0.603" Height="29" Width="84">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="LightGreen" TargetName="Border" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                            <Button x:Name="bChangeCreate" FontFamily="{Binding FontFamily}" Style="{StaticResource LightButtonStyle}" FontSize="{Binding FontSizeButton}" Content="Ändern" HorizontalAlignment="Left" Margin="232,280,0,0" VerticalAlignment="Top" Width="84" Click="bChangeChange_Click" Height="30"/>
+
+                            <Button Content="Abbrechen" x:Name="bChangeCancel" Style="{StaticResource LightButtonStyle}" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}"  HorizontalAlignment="Left" Margin="390,280,0,0" VerticalAlignment="Top" Click="bChangeCancel_Click" Height="29" Width="84"/>
+
+
 
                             <Button x:Name="imageChangebutton" Background="LightGray"  HorizontalAlignment="Left" Height="148" Width="110" Margin="514,107,0,0" Click="articleAddPicture_Click" VerticalAlignment="Top">
                                 <Image x:Name="imageChange"  Source="{Binding SelArticlePicture, Converter={StaticResource conv}}" />
@@ -435,52 +322,11 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem x:Name="tiCustomer" Header="Kunden" Width="100" Height="30">
+                    <TabItem x:Name="tiCustomer" Header="Kunden" Width="100" Height="30" Style="{StaticResource LightThemeTabStyle}">
                         <Grid>
-                            <Button x:Name="bCustomerChange" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" Content="Bearbeiten" Background="White" Opacity="0.7" FontWeight="Bold"  Height="40" IsEnabled="{Binding SelCustomer,Converter={StaticResource conv}}" Click="CustomerChange" Width="160" Margin="100,0,0,33" VerticalAlignment="Bottom" HorizontalAlignment="left">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
-                                                            <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button x:Name="bCustomerDelete" Content="Löschen" FontSize="{Binding FontSizeButton}" FontFamily="{Binding FontFamily}" Background="White" Opacity="0.7" FontWeight="Bold" Margin="0,0,100,33" IsEnabled="{Binding SelCustomer,Converter={StaticResource conv}}"  HorizontalAlignment="Right"  Click="CustomerDelete" Width="160" Height="40" VerticalAlignment="Bottom">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
-                                                            <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                            <Button x:Name="bCustomerChange" Style="{StaticResource LightButtonStyle}" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" Content="Bearbeiten" FontWeight="Bold"  Height="40" IsEnabled="{Binding SelCustomer,Converter={StaticResource conv}}" Click="CustomerChange" Width="160" Margin="100,0,0,33" VerticalAlignment="Bottom" HorizontalAlignment="left"/>
+                            <Button x:Name="bCustomerDelete" Style="{StaticResource LightButtonStyle}" Content="Löschen" FontSize="{Binding FontSizeButton}" FontFamily="{Binding FontFamily}" FontWeight="Bold" Margin="0,0,100,33" IsEnabled="{Binding SelCustomer,Converter={StaticResource conv}}"  HorizontalAlignment="Right"  Click="CustomerDelete" Width="160" Height="40" VerticalAlignment="Bottom"/>
+
                             <DataGrid FontFamily="{Binding FontFamily}" CanUserResizeColumns="False" CanUserResizeRows="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="lbCustomer" Background="White"  IsReadOnly="True" ItemsSource="{Binding LCustomer}" SelectedItem="{Binding SelCustomer}" HeadersVisibility="Column" RowBackground="white" Margin="100,33,100,100" GridLinesVisibility="None" FontSize="{Binding FontSizeText}" FontWeight="Black" SelectionChanged="lbArtList_SelectionChanged" AutoGenerateColumns="False" Opacity="0.7"  Grid.Column="1" CanUserDeleteRows="False" CanUserAddRows="False" RenderTransformOrigin="0.49,0.556">
                                 <DataGrid.Resources>
                                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -502,7 +348,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem x:Name="tiCustomerChange" Header="Kunde bearbeiten" Visibility="Collapsed" >
+                    <TabItem x:Name="tiCustomerChange" Header="Kunde bearbeiten" Visibility="Collapsed" Style="{StaticResource LightThemeTabStyle}">
                         <Grid  Height="400" Width="800" HorizontalAlignment="center" VerticalAlignment="Center">
                             <Label Content="Id" FontFamily="{Binding FontFamily}" FontSize="20" Margin="262,93,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.341,2.029" HorizontalAlignment="Left" Height="32" Width="39"/>
                             <Label Content="Vorname" FontFamily="{Binding FontFamily}" FontSize="20"  Margin="197,142,0,0" RenderTransformOrigin="0.576,-0.273" HorizontalAlignment="Left" Width="98" Height="33" VerticalAlignment="Top"/>
@@ -534,32 +380,12 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
-                            <Button Content="Abbrechen" Height="30" HorizontalAlignment="Left" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" Margin="462,332,0,0" VerticalAlignment="Top" Click="bCustomerChangeCancel" RenderTransformOrigin="0.162,0.603" Width="73">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="white" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="LightGreen" TargetName="Border" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <CheckBox x:Name="cbCustomerChangePassword"  FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeText}" Content="Passwort neu setzen" HorizontalAlignment="Left" Margin="337,289,0,0" VerticalAlignment="Top" Width="250" Height="30"/>
+                            <Button Content="Abbrechen" x:Name="bCustomerChangeCancel" Style="{StaticResource LightButtonStyle}" Height="30" HorizontalAlignment="Left" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeButton}" Margin="462,332,0,0" VerticalAlignment="Top" Click="bCustomerChangeCancel_Click" RenderTransformOrigin="0.162,0.603" Width="73"/>
+                            <CheckBox x:Name="cbCustomerChangePassword"  FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeText}" Content="Passwort neu setzen" HorizontalAlignment="Left" Margin="337,209,0,0" Width="250" Height="30"/>
                         </Grid>
                     </TabItem>
 
-                    <TabItem x:Name="tiOrder" Header="Bestellungen" Width="100" Height="30" VerticalAlignment="Top">
+                    <TabItem x:Name="tiOrder" Header="Bestellungen" Width="100" Height="30" VerticalAlignment="Top" Style="{StaticResource LightThemeTabStyle}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="55*"/>
@@ -585,7 +411,7 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <Label x:Name="lOrderSelection" Margin="100,0,0,17" FontSize="{Binding FontSizeText}" FontFamily="{Binding FontFamily}" HorizontalAlignment="Left" Width="180" Content="Bestellung anzeigen" Height="30" VerticalAlignment="Bottom"/>
-                                <ComboBox x:Name="cbStatus" ItemsSource="{Binding LStatus}" SelectedItem="{Binding SelStatus}" Margin="308,0,863,19" Height="28" VerticalAlignment="Bottom" FontFamily="{Binding FontFamily}" FontSize="16"/>
+                                <ComboBox x:Name="cbStatus" ItemsSource="{Binding LStatus}" SelectedItem="{Binding SelStatus}" Margin="308,0,863,19" MaxWidth="210" Height="28" VerticalAlignment="Bottom" FontFamily="{Binding FontFamily}" FontSize="16"/>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <DataGrid x:Name="lbOrder" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsReadOnly="True" ItemsSource="{Binding LOrder}" SelectionMode="Single" SelectedItem="{Binding SelOrder}"  Margin="100,0,100,74" GridLinesVisibility="None" FontSize="{Binding FontSizeText}" FontFamily="{Binding FontFamily}" FontWeight="bold" SelectionChanged="lbArtList_SelectionChanged" AutoGenerateColumns="False" Background="White" RowBackground="white" Opacity="0.7">
@@ -606,37 +432,17 @@
                                         <DataGridTextColumn Width="30*" Binding="{Binding Positions, Converter={StaticResource conv}}" Header="Gesamtbetrag"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
-                                <Button  Margin="0,0,668,20" FontSize="{Binding FontSizeButton}" x:Name="bOrderChange" Background="White" Opacity="0.7" IsEnabled="{Binding SelOrder, Converter={StaticResource conv}}"  FontWeight="Bold" HorizontalAlignment="Right" Width="120" Height="30" FontFamily="{Binding FontFamily}" VerticalAlignment="Bottom" RenderTransformOrigin="0.453,0.5" Content="Speichern" Click="bStatusChange">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Background" Value="white" />
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="BorderBrush" Value="LightGreen" TargetName="Border" />
-                                                                <Setter Property="BorderThickness" Value="2" TargetName="Border"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
+                                <Button  Margin="0,0,668,20" FontSize="{Binding FontSizeButton}" x:Name="bOrderChange" MaxWidth="210" Style="{StaticResource LightButtonStyle}" IsEnabled="{Binding SelOrder, Converter={StaticResource conv}}"  FontWeight="Bold" HorizontalAlignment="Right" Width="120" Height="30" FontFamily="{Binding FontFamily}" VerticalAlignment="Bottom" RenderTransformOrigin="0.453,0.5" Content="Speichern" Click="bStatusChange"/>
+
                                 <Label x:Name="lOrderChange" Margin="100,0,0,20" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeText}" HorizontalAlignment="Left" Width="180" Content="Bestellung ändern" Height="30" VerticalAlignment="Bottom"/>
-                                <ComboBox x:Name="cbStatusChange" Margin="308,0,863,20" Height="28" ItemsSource="{Binding LChangeStatus}" SelectedItem="{Binding ChangedSelStatus}" IsEnabled="{Binding SelOrder, Converter={StaticResource conv}}" VerticalAlignment="Bottom" FontFamily="{Binding FontFamily}" FontSize="16"/>
+                                <ComboBox x:Name="cbStatusChange" Margin="308,0,863,20" Height="28" ItemsSource="{Binding LChangeStatus}" SelectedItem="{Binding ChangedSelStatus}" MaxWidth="210" IsEnabled="{Binding SelOrder, Converter={StaticResource conv}}" VerticalAlignment="Bottom" FontFamily="{Binding FontFamily}" FontSize="16"/>
 
                                 <Label x:Name="lOrderHidden" FontWeight="Bold" FontSize="{Binding FontSizeText}" FontFamily="{Binding FontFamily}" Visibility="Hidden" Foreground="Red" Margin="547,369,0,0" HorizontalAlignment="Left" Width="417" Content="" Height="26" VerticalAlignment="Top"/>
                             </Grid>
                         </Grid>
                     </TabItem>
 
-                    <TabItem x:Name="tiPicture" Header="Bilder" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" >
+                    <TabItem x:Name="tiPicture" Header="Bilder" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" Style="{StaticResource LightThemeTabStyle}">
                         <Grid Height="400" Width="800" HorizontalAlignment="center" VerticalAlignment="Center">
                             <Button x:Name="bimageToByteCode" Background="LightGray" Height="212" Margin="160,0,0,78" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="144" Click="bimageToByteCode_Click">
                                 <Image x:Name="imageToByteCode" />
@@ -649,7 +455,6 @@
                             <TextBlock HorizontalAlignment="Left" FontFamily="{Binding FontFamily}" FontSize="{Binding FontSizeText}" Margin="129,10,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="Bilder in Bytecode umwandeln und in Zwischenablage kopieren" VerticalAlignment="Top" Height="79" Width="206"/>
                         </Grid>
                     </TabItem>
-                    <Button Content="Button"/>
 
                 </TabControl>
                 <!-- For the messageline for errors and confirmations -->

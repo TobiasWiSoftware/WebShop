@@ -9,9 +9,9 @@
 
   <ItemGroup>
     <None Remove="FontAwesome.otf" />
-    <None Remove="Pictures\Desktop.jpg" />
     <None Remove="Pictures\gear.png" />
     <None Remove="Pictures\icon.jpg" />
+    <None Remove="Pictures\LightDesktop.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +22,7 @@
     <Content Include="FontAwesome.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Pictures\Desktop.jpg">
+    <Resource Include="Pictures\LightDesktop.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Pictures\gear.png">

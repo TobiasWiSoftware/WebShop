@@ -15,9 +15,12 @@ namespace Layer3Access
 {
     public static class DBAccess
     {
-        private static string _liteSQLPath = @"../../../../ShopBase/Persistence/WebShop.db";
+        private static string _baseDirectory = Environment.GetEnvironmentVariable("BASE_DIRECTORY") != null ? Environment.GetEnvironmentVariable("BASE_DIRECTORY") : "../../../../";
+        
 
-        private static string _statsFile = @"../../../../ShopBase/Persistence/Data.txt";
+        private static string _liteSQLPath = Path.Combine(_baseDirectory,"ShopBase","Persistence","WebShop.db");
+
+        private static string _statsFile = Path.Combine(_baseDirectory,"ShopBase","Persistence","Data.txt");
 
         public static bool CreateDefaultDataBase()
         {
